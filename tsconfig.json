@@ -18,7 +18,6 @@
   },
   "compileOnSave": true,
   "buildOnSave": true,
-  "files": [ "./src/index.ts" ],
   "exclude": [
     "dist",
     "node_modules"
