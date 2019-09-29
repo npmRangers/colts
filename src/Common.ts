@@ -17,7 +17,7 @@ type IndexedPredicate<T, C> = KeyedMapper<T, number, C, boolean>
  */
 interface Common<T> {
     clone(): this
-    has( v: T ): boolean 
+    has( v: T ): boolean
 }
 
 /**
@@ -28,7 +28,7 @@ interface Sequational<T> {
     reverse(): this
     /**
      * Split collection by specified index into two collection of the similar type
-     * @param n 
+     * @param n
      */
     snap( n: number): [this, this]
     split( n: number ): this[]
@@ -44,49 +44,49 @@ export interface Simple<T> extends Common<T> {
     map<F>( f: Mapper<T, this, F> ): Simple<F>
     flatMap<F>( f: Mapper<T, this, Simple<F>> ): Simple<F>
     forEach( f: Mapper<T, this, void> ): this
-    reduce<F>( f: Reducer<T, this, F>, init?: F ): F	
+    reduce<F>( f: Reducer<T, this, F>, init?: F ): F
     /**
-     * Applies mapper function an mutates collection elements accordingly 
-     * @param f 
+     * Applies mapper function an mutates collection elements accordingly
+     * @param f
      */
     update( f: Mapper<T, this, T> ): this
     /**
      * Filter elements by predicate and stores values in different collections accordingly
-     * @param f 
+     * @param f
      */
     partition( f: Predicate<T, this> ): [this, this]
     filter( f: Predicate<T, this> ): this
     /**
      * Apply predicate to every element and returns true if all of them are true
-     * @param f 
+     * @param f
      */
     all( f: Predicate<T, this> ): boolean
     /**
      * Apply predicate to every element and returns true if any of them is true
-     * @param f 
+     * @param f
      */
     any( f: Predicate<T, this> ): boolean
     /**
      * Combine two collection according to specified predicates, result of the transformation is applied as mutation to this
-     * @param takeIfExistsAtThis 
-     * @param takeIfExistsAtBoth 
-     * @param takeIfExistsAtThat 
-     * @param that 
+     * @param takeIfExistsAtThis
+     * @param takeIfExistsAtBoth
+     * @param takeIfExistsAtThat
+     * @param that
      */
-    merge( 
+    merge(
         takeIfExistsAtThis: Predicate<T, this>,
         takeIfExistsAtBoth: Predicate<T, this>,
         takeIfExistsAtThat: Predicate<T, this>,
         that: this
     ): this
     /**
-     * Combine two collection according to specified predicates, result of the transformation is stored in a new collection 
-     * @param takeIfExistsAtThis 
-     * @param takeIfExistsAtBoth 
-     * @param takeIfExistsAtThat 
-     * @param that 
+     * Combine two collection according to specified predicates, result of the transformation is stored in a new collection
+     * @param takeIfExistsAtThis
+     * @param takeIfExistsAtBoth
+     * @param takeIfExistsAtThat
+     * @param that
      */
-    combine( 
+    combine(
         takeIfExistsAtThis: Predicate<T, this>,
         takeIfExistsAtBoth: Predicate<T, this>,
         takeIfExistsAtThat: Predicate<T, this>,
@@ -101,12 +101,12 @@ export interface SimpleSequational<T> extends Simple<T>, Sequational<T> {
     takeWhile( f: Predicate<T, this> ): this
     /**
      * Sort values by a predicate, places result in a new collection
-     * @param f 
+     * @param f
      */
     sort( f: PairMapper<T, T, this, boolean> ): this
     /**
      * Sort elements by a predicate
-     * @param f 
+     * @param f
      */
     reorder( f: PairMapper<T, T, this, boolean>): this
     /**
@@ -134,7 +134,7 @@ export interface SimpleBiSequational<T> extends SimpleSequational<T>, BiSequatio
     flatMapRight<F>( f: Mapper<T, this, SimpleBiSequational<F>> ): SimpleBiSequational<F>
     forEachRight( f: Mapper<T, this, void> ): this
     updateRight( f: Mapper<T, this, T> ): this
-    reduceRight<F>( f: Reducer<T, this, F>, init?: F ): F	
+    reduceRight<F>( f: Reducer<T, this, F>, init?: F ): F
     dropWhile( f: Predicate<T, this> ): this
 }
 
@@ -145,19 +145,19 @@ export interface Indexed<T> extends Common<T>, BiSequational<T> {
     map<F>(f: IndexedMapper<T, this, F>): Indexed<F>
     flatMap<F>( f: IndexedMapper<T, this, Indexed<F>> ): Indexed<F>
     forEach( f: Mapper<T, this, void> ): this
-    reduce<F>( f: IndexedReducer<T, this, F>, init?: F ): F	
+    reduce<F>( f: IndexedReducer<T, this, F>, init?: F ): F
     update( f: IndexedMapper<T, this, T> ): this
     partition( f: IndexedPredicate<T, this> ): [this, this]
     filter( f: IndexedPredicate<T, this> ): this
     all( f: IndexedPredicate<T, this> ): boolean
     any( f: IndexedPredicate<T, this> ): boolean
-    merge( 
+    merge(
         takeIfExistsAtThis: IndexedPredicate<T, this>,
         takeIfExistsAtBoth: IndexedPredicate<T, this>,
         takeIfExistsAtThat: IndexedPredicate<T, this>,
         that: this
     ): this
-    combine( 
+    combine(
         takeIfExistsAtThis: IndexedPredicate<T, this>,
         takeIfExistsAtBoth: IndexedPredicate<T, this>,
         takeIfExistsAtThat: IndexedPredicate<T, this>,
@@ -174,7 +174,7 @@ export interface Indexed<T> extends Common<T>, BiSequational<T> {
     flatMapRight<F>( f: IndexedMapper<T, this, BiSequational<F>> ): BiSequational<F>
     forEachRight( f: IndexedMapper<T, this, void> ): this
     updateRight( f: IndexedMapper<T, this, T> ): this
-    reduceRight<F>( f: IndexedReducer<T, this, F>, init?: F ): F	
+    reduceRight<F>( f: IndexedReducer<T, this, F>, init?: F ): F
     dropWhile( f: IndexedPredicate<T, this> ): this
     indexBy( f: IndexedPredicate<T, this>): number
     lastIndexBy( f: IndexedPredicate<T, this>): number
@@ -186,7 +186,7 @@ export interface Indexed<T> extends Common<T>, BiSequational<T> {
  * The API specific for collections which has efficient capabilities to add element to the end of sequence
  */
 export interface Prependable<T> {
-    prepend( v: T) : this
+    prepend( v: T): this
 }
 
 /**
@@ -200,22 +200,22 @@ export interface Appendable<T> {
  * The basic API for collections which associate values with key identifiers
  */
 export interface Keyed<K extends Key, T> extends Common<T> {
-    map<F>( f: KeyedMapper<T, K, this, F> ): Keyed<K, T> 
-    flatMap<F>( f: KeyedMapper<T, K, this, Keyed<K, T>> ): Keyed<K, T> 
-    forEach( f: KeyedMapper<T, K, this, void> ): this	
-    reduce<F>( f: KeyedReducer<T, K, this, F>, init?: F ): F	
+    map<F>( f: KeyedMapper<T, K, this, F> ): Keyed<K, T>
+    flatMap<F>( f: KeyedMapper<T, K, this, Keyed<K, T>> ): Keyed<K, T>
+    forEach( f: KeyedMapper<T, K, this, void> ): this
+    reduce<F>( f: KeyedReducer<T, K, this, F>, init?: F ): F
     update( f: KeyedMapper<T, K, this, T> ): this
     partition( f: KeyedPredicate<T, K, this> ): [this, this]
     filter( f: KeyedPredicate<T, K, this> ): this
     all( f: KeyedPredicate<T, K, this> ): boolean
     any( f: KeyedPredicate<T, K, this> ): boolean
-    merge( 
+    merge(
         takeIfExistsAtThis: KeyedPredicate<T, K, this>,
         takeIfExistsAtBoth: KeyedPredicate<T, K, this>,
         takeIfExistsAtThat: KeyedPredicate<T, K, this>,
         that: this
     ): this
-    combine( 
+    combine(
         takeIfExistsAtThis: KeyedPredicate<T, K, this>,
         takeIfExistsAtBoth: KeyedPredicate<T, K, this>,
         takeIfExistsAtThat: KeyedPredicate<T, K, this>,
@@ -241,12 +241,12 @@ export interface OrderedKeyed<K extends Key, T> extends Keyed<K, T>, BiSequation
     mapRight<F>( f: KeyedMapper<T, K, this, F> ): OrderedKeyed<K, F>
     flatMapRight<F>( f: KeyedMapper<T, K, this, OrderedKeyed<K, F>> ): OrderedKeyed<K, F>
     forEachRight( f: KeyedMapper<T, K, this, void> ): this
-    updateRight( f: KeyedMapper<T,K, this, T> ): this	
-    reduceRight<F>( f: KeyedReducer<T, K, this, F>, init?: F ): F	
+    updateRight( f: KeyedMapper<T, K, this, T> ): this
+    reduceRight<F>( f: KeyedReducer<T, K, this, F>, init?: F ): F
     dropWhile( f: KeyedPredicate<T, K, this> ): this
     /**
      * Search for the first key of the value according to the order
-     * @param value 
+     * @param value
      */
     keyOf( value: T ): K | undefined
     keyBy( f: KeyedPredicate<T, K, this> ): K | undefined
@@ -265,7 +265,7 @@ export interface KeyValue<K extends Key, T> {
 }
 
 /**
- * The extension for collections which has well defined list of possible keys with variable type of associated values 
+ * The extension for collections which has well defined list of possible keys with variable type of associated values
  */
 export interface FixedKeyValues<K extends keyof T, T> {
     set(key: K, value: T[K]): this
@@ -278,5 +278,5 @@ export interface FixedKeyValues<K extends keyof T, T> {
  */
 export interface Bucket<T> extends Common<T> {
     add( value: T ): this
-    remove( value: T ): this 
+    remove( value: T ): this
 }
